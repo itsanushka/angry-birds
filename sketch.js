@@ -5,6 +5,7 @@ const Bodies = Matter.Bodies;
 var engine, world;
 var box1, pig1;
 var backgroundImg,platform;
+var cat 
 
 function preload() {
     backgroundImg = loadImage("sprites/bg.png");
@@ -35,7 +36,8 @@ function setup(){
     log5 = new Log(870,120,150, -PI/7);
 
     bird = new Bird(100,100);
-
+  cat=  Matter.Constraint.create({ bodyA:bird.body,pointB:{x:200,y:50},length:10,stiffness:0.06})
+   World.add(world,cat)
 }
 
 function draw(){
@@ -58,7 +60,16 @@ function draw(){
     box5.display();
     log4.display();
     log5.display();
-
+    if(cat.bodyA)
+{line(bird.body.position.x,bird.body.position.y,200,50)}
     bird.display();
     platform.display();
+}
+function mouseDragged()
+{
+    Matter.Body.setPosition(bird.body,{x:mouseX,y:mouseY})
+}
+function mouseReleased()
+{
+    cat.bodyA=null
 }
